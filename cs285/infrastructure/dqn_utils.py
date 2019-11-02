@@ -118,6 +118,32 @@ def atari_optimizer(num_timesteps):
         lr_schedule=lr_schedule
     )
 
+def constant_atari_optimizer(num_timesteps):
+    lr_schedule = ConstantSchedule(1e-4)
+
+    return OptimizerSpec(
+        constructor=tf.train.AdamOptimizer,
+        kwargs=dict(epsilon=1e-4),
+        lr_schedule=lr_schedule
+    ) 
+
+def linear_decreasing_atari_optimizer(num_timesteps):
+    lr_schedule = LinearSchedule(num_timesteps, 1e-5, initial_p=.1)
+    return OptimizerSpec(
+        constructor=tf.train.AdamOptimizer,
+        kwargs=dict(epsilon=1e-4),
+        lr_schedule=lr_schedule
+    ) 
+
+def linear_increasing_atari_optimizer(num_timesteps):
+    lr_schedule = LinearSchedule(num_timesteps, 1, initial_p=1e-5)
+    return OptimizerSpec(
+        constructor=tf.train.AdamOptimizer,
+        kwargs=dict(epsilon=1e-4),
+        lr_schedule=lr_schedule
+    ) 
+
+
 
 def lander_optimizer():
     return OptimizerSpec(

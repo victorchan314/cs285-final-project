@@ -7,8 +7,9 @@ import time
 
 def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('rgb_array')):
 
+    # TODO: GETTHIS from HW2
     # initialize env for the beginning of a new rollout
-    ob = env.reset()
+    ob = env.reset() # TODO: GETTHIS from HW1
 
     # init vars
     obs, acs, rewards, next_obs, terminals, image_obs = [], [], [], [], [], []
@@ -31,7 +32,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
 
         # use the most recent ob to decide what to do
         obs.append(ob)
-        ac = policy.get_action(ob)
+        ac = policy.get_action(ob) # TODO: GETTHIS from HW1
         ac = ac[0]
         acs.append(ac)
 
@@ -45,6 +46,7 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
 
         # End the rollout if the rollout ended 
         # Note that the rollout can end due to done, or due to max_path_length
+        # TODO: GETTHIS from HW1
         rollout_done = int(done or steps >= max_path_length)
         terminals.append(rollout_done)
         

@@ -44,7 +44,6 @@ class DQNCritic(BaseCritic):
             # target Q-network. See page 5 of https://arxiv.org/pdf/1509.06461.pdf for more details.
             indices = tf.argmax(self.q_t_values, axis=1)
             q_tp1 = tf.reduce_sum(q_tp1_values * tf.one_hot(indices, self.ac_dim), axis=1)
-            #q_tp1 = tf.gather_nd(q_tp1_values, tf.transpose(tf.stack((tf.range(q_tp1_values.shape[0]), indices))), axis=1)
         else:
             # q values of the next timestep
             q_tp1 = tf.reduce_max(q_tp1_values, axis=1)
@@ -64,7 +63,7 @@ class DQNCritic(BaseCritic):
         # TODO compute the Bellman error (i.e. TD error between q_t and target_q_t)
         # Note that this scalar-valued tensor later gets passed into the optimizer, to be minimized
         # HINT: use reduce mean of huber_loss (from infrastructure/dqn_utils.py) instead of squared error
-        self.total_error = huber_loss(self.q_t - target_q_t)
+        self.total_error = tf.reduce_mean(huber_loss(self.q_t - target_q_t))
 
         #####################
 
