@@ -1,4 +1,5 @@
 import numpy as np
+from threading import Lock, Thread
 import time
 
 ############################################
@@ -45,14 +46,8 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
 
         # End the rollout if the rollout ended 
         # Note that the rollout can end due to done, or due to max_path_length
-
         # TODO: GETTHIS from HW1
-        # rollout_done = TODO 
-        if done or steps > max_path_length:
-            rollout_done = 1
-        else:
-            rollout_done = 0
-        
+        rollout_done = int(done or steps >= max_path_length)
         terminals.append(rollout_done)
         
         if rollout_done: 
@@ -62,43 +57,24 @@ def sample_trajectory(env, policy, max_path_length, render=False, render_mode=('
 
 def sample_trajectories(env, policy, min_timesteps_per_batch, max_path_length, render=False, render_mode=('rgb_array')):
 
-    # TODO: GETTHIS from HW1 or HW2
-    """
-        Collect rollouts until we have collected min_timesteps_per_batch steps.
-
-        TODO implement this function
-        Hint1: use sample_trajectory to get each path (i.e. rollout) that goes into paths
-        Hint2: use get_pathlength to count the timesteps collected in each path
-    """
     timesteps_this_batch = 0
     paths = []
     while timesteps_this_batch < min_timesteps_per_batch:
-
-        #collect rollout
         path = sample_trajectory(env, policy, max_path_length, render, render_mode)
+        timesteps_this_batch += get_pathlength(path)
         paths.append(path)
-
-        #count steps
-        timesteps_this_batch += get_pathlength(path) 
 
     return paths, timesteps_this_batch
 
+def sample_trajectories_parallelized(envs, policy, min_timesteps_per_batch, max_path_length, num_threads, render=False, render_mode=('rgb_array')):
+    thread_pool = EnvSamplingThreadPool(envs, policy, min_timesteps_per_batch, max_path_length, render, render_mode)
+    paths, timesteps_this_batch = thread_pool.sample()
+
+    return paths, timesteps_this_batch
 
 def sample_n_trajectories(env, policy, ntraj, max_path_length, render=False, render_mode=('rgb_array')):
     
-    # TODO: GETTHIS from HW1 or HW2
-    """
-        Collect ntraj rollouts.
-
-        TODO implement this function
-        Hint1: use sample_trajectory to get each path (i.e. rollout) that goes into paths
-    """
-    paths = []
-
-    for i in range(ntraj):
-        # collect rollout
-        path = sample_trajectory(env, policy, max_path_length, render, render_mode)
-        paths.append(path)
+    paths = [sample_trajectory(env, policy, max_path_length, render, render_mode) for _ in range(ntraj)]
 
     return paths
 
@@ -139,3 +115,47 @@ def convert_listofrollouts(paths):
 
 def get_pathlength(path):
     return len(path["reward"])
+
+############################################
+############################################
+
+class EnvSamplingThread(Thread):
+    def __init__(self, pool, lock, min_timesteps, env, policy, max_path_length, render, render_mode):
+        self.pool = pool
+        self.lock = lock
+        self.min_timesteps = min_timesteps
+
+        self.env = env
+        self.policy = policy
+        self.max_path_length = max_path_length
+        self.render = render
+        self.render_mode = render_mode
+        super(EnvSamplingThread, self).__init__()
+
+    def run(self):
+        while self.pool.total_timesteps < self.min_timesteps:
+            path = sample_trajectory(self.env, self.policy, self.max_path_length, self.render, self.render_mode)
+            path_length = get_pathlength(path)
+
+            with self.lock:
+                if self.pool.total_timesteps >= self.min_timesteps:
+                    pass
+                else:
+                    self.pool.total_timesteps += path_length
+                    self.pool.paths.append(path)
+
+class EnvSamplingThreadPool(object):
+    def __init__(self, envs, policy, min_timesteps, max_path_length, render, render_mode):
+        self.lock = Lock()
+        self.threads = [EnvSamplingThread(self, self.lock, min_timesteps, env, policy, max_path_length, render, render_mode) for env in envs]
+        self.paths = []
+        self.total_timesteps = 0
+
+    def sample(self):
+        for thread in self.threads:
+            thread.start()
+
+        for thread in self.threads:
+            thread.join()
+
+        return self.paths, self.total_timesteps

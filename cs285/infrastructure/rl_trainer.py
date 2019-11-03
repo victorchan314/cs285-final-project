@@ -53,6 +53,12 @@ class RL_Trainer(object):
             self.best_mean_episode_reward = -float('inf')
         self.env.seed(seed)
 
+        if self.params.get("parallelized", 1) > 1:
+             self.envs = [self.env]
+             self.envs += [gym.make(self.params["env_name"]) for _ in range(self.params.get("parallelized", 1) - 1)]
+             for env in self.envs:
+                 env.seed(seed)
+
         # Maximum length for episodes
         self.params['ep_len'] = self.params['ep_len'] or self.env.spec.max_episode_steps
         MAX_VIDEO_LEN = self.params['ep_len']
@@ -198,7 +204,10 @@ class RL_Trainer(object):
         # HINT1: use sample_trajectories from utils
         # HINT2: you want each of these collected rollouts to be of length self.params['ep_len']
         print("\nCollecting data to be used for training...")
-        paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params['ep_len'])
+        if self.params.get("parallelized", 1) > 1:
+            paths, envsteps_this_batch = sample_trajectories_parallelized(self.envs, collect_policy, batch_size, self.params["ep_len"], self.params.get("parallelized", 1))
+        else:
+            paths, envsteps_this_batch = sample_trajectories(self.env, collect_policy, batch_size, self.params["ep_len"])
 
         # collect more rollouts with the same policy, to be saved as videos in tensorboard
         # note: here, we collect MAX_NVIDEO rollouts, each of length MAX_VIDEO_LEN
@@ -212,18 +221,15 @@ class RL_Trainer(object):
 
     def train_agent(self):
         # TODO: GETTHIS from HW1
-        # print('\nTraining agent using sampled data from replay buffer...')
+        #print('\nTraining agent using sampled data from replay buffer...')
         for train_step in range(self.params['num_agent_train_steps_per_iter']):
-
             # TODO sample some data from the data buffer
             # HINT1: use the agent's sample function
             # HINT2: how much data = self.params['train_batch_size']
-            ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = self.agent.sample(self.params['train_batch_size'])
+            ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch = self.agent.sample(self.params["train_batch_size"])
+            for gradient_step in range(self.params.get("gradient_steps_per_batch", 1)):
+                loss = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
 
-            # TODO use the sampled data for training
-            # HINT: use the agent's train function
-            # HINT: print or plot the loss for debugging!
-            loss = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
         return loss
 
     def do_relabel_with_expert(self, expert_policy, paths):

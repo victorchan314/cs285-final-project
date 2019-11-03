@@ -62,6 +62,9 @@ def main():
 
     parser.add_argument('--save_params', action='store_true')
 
+    parser.add_argument("--parallelized", type=int, default=1)
+    parser.add_argument("--q3", action="store_true")
+
     args = parser.parse_args()
 
     # convert to dictionary
@@ -71,25 +74,59 @@ def main():
     ### CREATE DIRECTORY FOR LOGGING
     ##################################
 
-    logdir_prefix = 'dqn_'
-    if args.double_q:
-        logdir_prefix += 'double_q_'
+    if args.q3:
+        exp_names = ["q3_hparam1", "q3_hparam2", "q3_hparam3"]
+        batch_sizes = [8, 16, 64]
+        for i in range(len(exp_names)):
+            exp_name = exp_names[i]
+            batch_size = batch_sizes[i]
+            args.exp_name = exp_name
+            args.batch_size = batch_size
+            params["exp_name"] = exp_name
+            params["batch_size"] = batch_size
 
-    data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../data')
+            logdir_prefix = 'dqn_'
+            if args.double_q:
+                logdir_prefix += 'double_q_'
 
-    if not (os.path.exists(data_path)):
-        os.makedirs(data_path)
+            data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../data')
 
-    logdir = logdir_prefix + args.exp_name + '_' + args.env_name + '_' + time.strftime("%d-%m-%Y_%H-%M-%S")
-    logdir = os.path.join(data_path, logdir)
-    params['logdir'] = logdir
-    if not(os.path.exists(logdir)):
-        os.makedirs(logdir)
+            if not (os.path.exists(data_path)):
+                os.makedirs(data_path)
 
-    print("\n\n\nLOGGING TO: ", logdir, "\n\n\n")
+            logdir = logdir_prefix + args.exp_name + '_' + args.env_name + '_' + time.strftime("%d-%m-%Y_%H-%M-%S")
+            logdir = os.path.join(data_path, logdir)
+            params['logdir'] = logdir
+            if not(os.path.exists(logdir)):
+                os.makedirs(logdir)
 
-    trainer = Q_Trainer(params)
-    trainer.run_training_loop()
+            print("\n\n\nLOGGING TO: ", logdir, "\n\n\n")
+
+            trainer = Q_Trainer(params)
+            trainer.run_training_loop()
+            trainer.rl_trainer.sess.close()
+            import tensorflow as tf
+            tf.reset_default_graph()
+    else:
+        logdir_prefix = 'dqn_'
+        if args.double_q:
+            logdir_prefix += 'double_q_'
+
+        data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../data')
+
+        if not (os.path.exists(data_path)):
+            os.makedirs(data_path)
+
+        logdir = logdir_prefix + args.exp_name + '_' + args.env_name + '_' + time.strftime("%d-%m-%Y_%H-%M-%S")
+        logdir = os.path.join(data_path, logdir)
+        params['logdir'] = logdir
+        if not(os.path.exists(logdir)):
+            os.makedirs(logdir)
+
+        print("\n\n\nLOGGING TO: ", logdir, "\n\n\n")
+
+        trainer = Q_Trainer(params)
+        trainer.run_training_loop()
 
 
 if __name__ == "__main__":

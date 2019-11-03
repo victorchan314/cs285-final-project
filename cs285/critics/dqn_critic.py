@@ -9,7 +9,6 @@ class DQNCritic(BaseCritic):
         self.sess = sess
         self.env_name = hparams['env_name']
         self.ob_dim = hparams['ob_dim']
-        self.batch_size = hparams["train_batch_size"]
 
         if isinstance(self.ob_dim, int):
             self.input_shape = (self.ob_dim,)
@@ -24,7 +23,6 @@ class DQNCritic(BaseCritic):
         self.optimizer_spec = optimizer_spec
         self.define_placeholders()
         self._build(hparams['q_func'])
-        
 
     def _build(self, q_func):
 
@@ -44,9 +42,8 @@ class DQNCritic(BaseCritic):
             # In double Q-learning, the best action is selected using the Q-network that
             # is being updated, but the Q-value for this action is obtained from the
             # target Q-network. See page 5 of https://arxiv.org/pdf/1509.06461.pdf for more details.
-            indices = tf.argmax(q_func(self.obs_tp1_ph, self.ac_dim, scope='q_func', reuse=True), axis=1)
-            indices = tf.stack([tf.range(self.batch_size, dtype=tf.int64),indices], axis=1)
-            q_tp1 = tf.gather_nd(q_tp1_values, indices)
+            indices = tf.argmax(self.q_t_values, axis=1)
+            q_tp1 = tf.reduce_sum(q_tp1_values * tf.one_hot(indices, self.ac_dim), axis=1)
         else:
             # q values of the next timestep
             q_tp1 = tf.reduce_max(q_tp1_values, axis=1)
@@ -58,7 +55,7 @@ class DQNCritic(BaseCritic):
             #currentReward + self.gamma * qValuesOfNextTimestep * (1 - self.done_mask_ph)
         # HINT2: see above, where q_tp1 is defined as the q values of the next timestep
         # HINT3: see the defined placeholders and look for the one that holds current rewards
-        target_q_t = self.rew_t_ph + self.gamma*q_tp1 * (1 - self.done_mask_ph)
+        target_q_t = self.rew_t_ph + self.gamma * q_tp1 * (1 - self.done_mask_ph)
         target_q_t = tf.stop_gradient(target_q_t)
 
         #####################

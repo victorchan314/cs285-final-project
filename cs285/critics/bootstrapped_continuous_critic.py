@@ -79,7 +79,7 @@ class BootstrappedContinuousCritic(BaseCritic):
     def forward(self, ob):
         # TODO: run your critic
         # HINT: there's a neural network structure defined above with mlp layers, which serves as your 'critic'
-        return self.sess.run(self.critic_prediction, feed_dict={self.sy_ob_no:ob})
+        return self.sess.run(self.critic_prediction, feed_dict={self.sy_ob_no: ob})
 
     def update(self, ob_no, next_ob_no, re_n, terminal_n):
         """
@@ -116,16 +116,11 @@ class BootstrappedContinuousCritic(BaseCritic):
                 # HINT2: need to populate the following (in the feed_dict): 
                     #a) sy_ob_no with ob_no
                     #b) sy_target_n with target values calculated above
-        loss = []
-        for i in range(self.num_grad_steps_per_target_update*self.num_target_updates):
-            if i % self.num_grad_steps_per_target_update == 0:
-                V_prime = self.forward(next_ob_no)*(1-terminal_n)
-                target = re_n + self.gamma*V_prime
-            _, l = self.sess.run([self.critic_update_op, self.critic_loss], 
-                                feed_dict={self.sy_ob_no:ob_no, self.sy_target_n:target})
-            loss.append(l)
-        loss = sum(loss)/len(loss)
+        
+        for _ in range(self.num_target_updates):
+            target = re_n + (1 - terminal_n) * self.forward(next_ob_no)
+
+            for _ in range(self.num_grad_steps_per_target_update):
+                _, loss = self.sess.run([self.critic_update_op, self.critic_loss], feed_dict={self.sy_ob_no: ob_no, self.sy_target_n: target})
 
         return loss
-
-
