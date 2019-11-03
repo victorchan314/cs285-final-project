@@ -109,7 +109,12 @@ class MLPPolicy(BasePolicy):
     def get_action(self, obs):
 
         # TODO: GETTHIS from HW1
-        return self.sess.run(self.sample_ac, feed_dict={self.observations_pl: obs[np.newaxis, :]})
+        if len(obs.shape) > 1:
+            observation = obs
+        else:
+            observation = obs[np.newaxis, :]
+
+        return self.sess.run(self.sample_ac, feed_dict={self.observations_pl: observation})
 
 #####################################################
 #####################################################

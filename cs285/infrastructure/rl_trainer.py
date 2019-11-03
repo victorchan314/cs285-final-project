@@ -230,6 +230,9 @@ class RL_Trainer(object):
             for gradient_step in range(self.params.get("gradient_steps_per_batch", 1)):
                 loss = self.agent.train(ob_batch, ac_batch, re_batch, next_ob_batch, terminal_batch)
 
+        if self.params["agent_params"]["student_policy"] != "None":
+            loss["Actor_Loss"] = self.agent.distill_policy()
+
         return loss
 
     def do_relabel_with_expert(self, expert_policy, paths):

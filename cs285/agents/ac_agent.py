@@ -6,6 +6,7 @@ from collections import OrderedDict
 from .base_agent import BaseAgent
 from cs285.policies.MLP_policy import MLPPolicyAC
 from cs285.critics.bootstrapped_continuous_critic import BootstrappedContinuousCritic
+from cs285.infrastructure.distillery import Distillery
 from cs285.infrastructure.replay_buffer import ReplayBuffer
 from cs285.infrastructure.utils import *
 
@@ -31,6 +32,31 @@ class ACAgent(BaseAgent):
         self.critic = BootstrappedContinuousCritic(sess, self.agent_params)
 
         self.replay_buffer = ReplayBuffer()
+
+        self.student_policy = agent_params["student_policy"]
+        if self.student_policy == "MLP":
+            self.eval_actor = MLPPolicyAC(self.sess, 
+                                   self.agent_params['ac_dim'],
+                                   self.agent_params['ob_dim'],
+                                   2, 16,
+                                   discrete=self.agent_params['discrete'],
+                                   learning_rate=self.agent_params['learning_rate'],
+                                   policy_scope="eval_policy_vars"
+                                   )
+
+    def distill_policy(self):
+        if self.student_policy == "None":
+            pass
+        elif self.student_policy == "MLP":
+            # In the future, will make separate distillation utils file to store params
+            self.distillery = Distillery(self.replay_buffer)
+            loss = self.distillery.distill_policy(self.actor, self.eval_actor, estimate_advantage=self.estimate_advantage)
+        elif self.student_policy == "RandomForest":
+            pass
+        else:
+            raise ValueError("Distill policy is not allowed")
+
+        return loss
 
     def estimate_advantage(self, ob_no, next_ob_no, re_n, terminal_n):
         

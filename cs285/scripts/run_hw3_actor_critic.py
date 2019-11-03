@@ -35,7 +35,11 @@ class AC_Trainer(object):
             'num_actor_updates_per_agent_update': params['num_actor_updates_per_agent_update'],
         }
 
-        agent_params = {**computation_graph_args, **estimate_advantage_args, **train_args}
+        policy_distillation_args = {
+            "student_policy": params["distill"]
+        }
+
+        agent_params = {**computation_graph_args, **estimate_advantage_args, **train_args, **policy_distillation_args}
 
         self.params = params
         self.params['agent_class'] = ACAgent
@@ -89,6 +93,8 @@ def main():
     parser.add_argument('--scalar_log_freq', type=int, default=10)
 
     parser.add_argument('--save_params', action='store_true')
+
+    parser.add_argument("--distill", type=str, default="None")
 
     args = parser.parse_args() 
 
