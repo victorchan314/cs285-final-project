@@ -32,6 +32,11 @@ class RandomForestPolicy(BasePolicy):
         self.training = training
         self.nn_baseline = nn_baseline
 
+        self.forest_params = tensor_forest.ForestHParams(num_classes=self.ac_dim,
+                                      num_features=self.ob_dim,
+                                      num_trees=self.n_layers,
+                                      max_nodes=self.size*self.n_layers).fill()
+
         # build TF graph
         with tf.variable_scope(policy_scope, reuse=tf.AUTO_REUSE):
             self.build_graph()
@@ -40,15 +45,14 @@ class RandomForestPolicy(BasePolicy):
         self.policy_vars = [v for v in tf.all_variables() if policy_scope in v.name and 'train' not in v.name]
         self.policy_saver = tf.train.Saver(self.policy_vars, max_to_keep=None)
 
-        self.forest_params = tensor_forest.ForestHParams(num_classes=num_classes,
-                                      num_features=num_features,
-                                      num_trees=num_trees,
-                                      max_nodes=max_nodes).fill()
+        
 
     ##################################
 
     def build_graph(self):
-        self.forest_graph = tensor_forest.RandomForestGraphs(hparams)
+        self.define_placeholders()
+        self.parameters = tensor_forest.RandomForestGraphs(self.forest_params)
+        self.build_action_sampling()
         if self.training:
             with tf.variable_scope('train', reuse=tf.AUTO_REUSE):
                 self.define_train_op()
@@ -76,8 +80,8 @@ class RandomForestPolicy(BasePolicy):
 
     def define_train_op(self):
         # Get training graph and loss
-        train_op = forest_graph.training_graph(self.observations_pl, self.actions_pl)
-        loss_op = forest_graph.training_loss(self.observation_pl, self.actions_pl)
+        train_op = self.parameters.training_graph(self.observations_pl, self.actions_pl)
+        loss_op = self.parameters.training_loss(self.observation_pl, self.actions_pl)
 
 
     def define_log_prob(self):

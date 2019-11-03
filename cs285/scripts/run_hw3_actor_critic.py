@@ -8,6 +8,7 @@ import tensorflow as tf
 from cs285.infrastructure.rl_trainer import RL_Trainer
 from cs285.agents.ac_agent import ACAgent
 
+
 class AC_Trainer(object):
 
     def __init__(self, params):
