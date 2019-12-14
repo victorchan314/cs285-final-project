@@ -6,7 +6,7 @@ from rllab.envs.gym_env import convert_gym_space
 
 from metaworld.benchmarks import ML1
 from metaworld.benchmarks import ML10
-from dnc.envs.metaworld_wrappers import ML10Wrapper
+from dnc.metaworld.env_wrappers import ML10Wrapper
 
 # Algo Imports
 

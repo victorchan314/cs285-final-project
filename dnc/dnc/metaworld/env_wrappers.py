@@ -1,7 +1,8 @@
+import gym
 from metaworld.benchmarks import ML10
 from rllab.envs.env_spec import EnvSpec
 
-clss ML10Wrapper(gym.Env):
+class ML10Wrapper(gym.Env):
     def __init__(self, wrapped_env):
         self.env = wrapped_env
         self.env_spec = EnvSpec(self.env.observation_space, self.env.action_space)
