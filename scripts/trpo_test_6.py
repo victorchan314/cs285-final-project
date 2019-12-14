@@ -6,6 +6,7 @@ from rllab.envs.gym_env import convert_gym_space
 
 from metaworld.benchmarks import ML1
 from metaworld.benchmarks import ML10
+from dnc.envs.metaworld_wrappers import ML10Wrapper
 
 # Algo Imports
 
@@ -30,6 +31,7 @@ def run_task(args,*_):
     metaworld_env._observation_space = convert_gym_space(metaworld_env.observation_space)
     metaworld_env._action_space = convert_gym_space(metaworld_env.action_space)
     env = TfEnv(normalize(metaworld_env))
+    env = ML10Wrapper(env)
 
     policy = GaussianMLPPolicy(
         name="policy",
