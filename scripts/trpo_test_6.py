@@ -5,6 +5,7 @@ from rllab.envs.gym_env import convert_gym_space
 #import dnc.envs as dnc_envs
 
 from metaworld.benchmarks import ML1
+from metaworld.benchmarks import ML10
 
 # Algo Imports
 
@@ -18,9 +19,14 @@ from rllab.misc.instrument import stub, run_experiment_lite
 
 def run_task(args,*_):
     
-    metaworld_env = ML1.get_train_tasks("pick-place-v1")
-    tasks = metaworld_env.sample_tasks(1)
-    metaworld_env.set_task(tasks[0])
+#    metaworld_env = ML1.get_train_tasks("pick-place-v1")
+#    tasks = metaworld_env.sample_tasks(1)
+#    metaworld_env.set_task(tasks[0])
+#    metaworld_env._observation_space = convert_gym_space(metaworld_env.observation_space)
+#    metaworld_env._action_space = convert_gym_space(metaworld_env.action_space)
+#    env = TfEnv(normalize(metaworld_env))
+
+    metaworld_env = ML10.get_train_tasks()
     metaworld_env._observation_space = convert_gym_space(metaworld_env.observation_space)
     metaworld_env._action_space = convert_gym_space(metaworld_env.action_space)
     env = TfEnv(normalize(metaworld_env))
