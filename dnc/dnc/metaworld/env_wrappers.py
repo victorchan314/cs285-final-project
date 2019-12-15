@@ -2,7 +2,6 @@ import gym
 from metaworld.benchmarks import ML10
 from rllab.envs.env_spec import EnvSpec
 from rllab.envs.gym_env import convert_gym_space
-from rllab.envs.proxy_env import ProxyEnv
 
 class ML10Wrapper(gym.Env):
     def __init__(self, wrapped_env):
@@ -11,7 +10,7 @@ class ML10Wrapper(gym.Env):
         action_space = wrapped_env.action_space
         self.observation_space = convert_gym_space(observation_space)
         self.action_space = convert_gym_space(action_space)
-        #self.env_spec = EnvSpec(self.observation_space, self.action_space)
+        self.spec = EnvSpec(self.observation_space, self.action_space)
 
     def step(self, action):
         return self._wrapped_env.step(action)
@@ -27,6 +26,9 @@ class ML10Wrapper(gym.Env):
 
     def seed(self, seed=None):
         return self._wrapped_env.seed(seed)
+
+    def log_diagnostics(self, paths):
+        self._wrapped_env.log_diagnostics(paths, "ML10Wrapper")
 
     def get_param_values(self):
         return None
