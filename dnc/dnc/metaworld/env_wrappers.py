@@ -46,6 +46,6 @@ class ML10Wrapper(gym.Env):
         # For now just using the meta-train tasks as partitions
         # maybe in the future we can use variations too
         num_partitions = 10
-        partitions = self._task_envs
+        partitions = self._wrapped_env._task_envs
 
         return partitions
