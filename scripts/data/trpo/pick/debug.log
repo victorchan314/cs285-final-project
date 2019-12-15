@@ -21524,3 +21524,383 @@
 2019-12-14 13:52:24.905387 PST | Time                     129.351
 2019-12-14 13:52:24.905492 PST | ItrTime                    0.249942
 2019-12-14 13:52:24.905594 PST | -----------------------  -------------
+2019-12-14 16:13:49.247186 PST | [experiment_2019_12_14_16_13_46_0001] Populating workers...
+2019-12-14 16:13:49.541248 PST | [experiment_2019_12_14_16_13_46_0001] Populated
+2019-12-14 16:13:49.580259 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Obtaining samples...
+2019-12-14 16:13:51.807729 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Processing samples...
+2019-12-14 16:13:51.934567 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | fitting baseline...
+2019-12-14 16:13:52.042004 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | fitted
+2019-12-14 16:13:52.044673 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Logging diagnostics...
+2019-12-14 16:13:52.048340 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Optimizing policy...
+2019-12-14 16:13:52.049227 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Computing loss before
+2019-12-14 16:13:52.257094 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Computing KL before
+2019-12-14 16:13:52.279708 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Optimizing
+2019-12-14 16:13:52.280859 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Start CG optimization: #parameters: 20952, #inputs: 20102, #subsample_inputs: 20102
+2019-12-14 16:13:52.280985 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | computing loss before
+2019-12-14 16:13:52.283210 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | performing update
+2019-12-14 16:13:52.283354 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | computing gradient
+2019-12-14 16:13:52.347932 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | gradient computed
+2019-12-14 16:13:52.348196 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | computing descent direction
+2019-12-14 16:13:53.129294 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | descent direction computed
+2019-12-14 16:13:53.221548 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | backtrack iters: 2
+2019-12-14 16:13:53.221748 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | computing loss after
+2019-12-14 16:13:53.221856 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | optimization finished
+2019-12-14 16:13:53.221967 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Computing KL after
+2019-12-14 16:13:53.224344 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Computing loss after
+2019-12-14 16:13:53.226546 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Saving snapshot...
+2019-12-14 16:13:53.232741 PST | [experiment_2019_12_14_16_13_46_0001] itr #0 | Saved
+2019-12-14 16:13:53.233501 PST | -----------------------  --------------
+2019-12-14 16:13:53.233624 PST | Iteration                   0
+2019-12-14 16:13:53.233761 PST | AverageDiscountedReturn    56.615
+2019-12-14 16:13:53.233891 PST | AverageReturn              56.615
+2019-12-14 16:13:53.234015 PST | ExplainedVariance           5.93725e-12
+2019-12-14 16:13:53.234140 PST | NumTrajs                 3016
+2019-12-14 16:13:53.234265 PST | Entropy                     1.41894
+2019-12-14 16:13:53.234389 PST | Perplexity                  4.13273
+2019-12-14 16:13:53.234513 PST | StdReturn                  41.798
+2019-12-14 16:13:53.234637 PST | MaxReturn                 349.828
+2019-12-14 16:13:53.234761 PST | MinReturn                   0
+2019-12-14 16:13:53.234885 PST | AveragePolicyStd            1
+2019-12-14 16:13:53.234995 PST | LossBefore                  1.0627e-08
+2019-12-14 16:13:53.235128 PST | LossAfter                  -0.001267
+2019-12-14 16:13:53.235250 PST | MeanKLBefore                0
+2019-12-14 16:13:53.235371 PST | MeanKL                      0.0152788
+2019-12-14 16:13:53.235491 PST | dLoss                       0.00126701
+2019-12-14 16:13:53.235613 PST | Time                        3.65269
+2019-12-14 16:13:53.235735 PST | ItrTime                     3.65269
+2019-12-14 16:13:53.235856 PST | -----------------------  --------------
+2019-12-14 16:13:53.236102 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Obtaining samples...
+2019-12-14 16:13:55.477334 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Processing samples...
+2019-12-14 16:13:55.724104 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | fitting baseline...
+2019-12-14 16:13:55.842190 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | fitted
+2019-12-14 16:13:55.858084 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Logging diagnostics...
+2019-12-14 16:13:55.864486 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Optimizing policy...
+2019-12-14 16:13:55.865075 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Computing loss before
+2019-12-14 16:13:55.868843 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Computing KL before
+2019-12-14 16:13:55.872021 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Optimizing
+2019-12-14 16:13:55.873497 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Start CG optimization: #parameters: 20952, #inputs: 20103, #subsample_inputs: 20103
+2019-12-14 16:13:55.873876 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | computing loss before
+2019-12-14 16:13:55.876462 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | performing update
+2019-12-14 16:13:55.876856 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | computing gradient
+2019-12-14 16:13:55.881931 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | gradient computed
+2019-12-14 16:13:55.882343 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | computing descent direction
+2019-12-14 16:13:56.008957 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | descent direction computed
+2019-12-14 16:13:56.018613 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | backtrack iters: 1
+2019-12-14 16:13:56.018861 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | computing loss after
+2019-12-14 16:13:56.019021 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | optimization finished
+2019-12-14 16:13:56.019183 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Computing KL after
+2019-12-14 16:13:56.021611 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Computing loss after
+2019-12-14 16:13:56.023991 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Saving snapshot...
+2019-12-14 16:13:56.030439 PST | [experiment_2019_12_14_16_13_46_0001] itr #1 | Saved
+2019-12-14 16:13:56.031178 PST | -----------------------  --------------
+2019-12-14 16:13:56.031300 PST | Iteration                   1
+2019-12-14 16:13:56.031410 PST | AverageDiscountedReturn    54.4619
+2019-12-14 16:13:56.031515 PST | AverageReturn              54.4619
+2019-12-14 16:13:56.031619 PST | ExplainedVariance           0.199005
+2019-12-14 16:13:56.031722 PST | NumTrajs                 3117
+2019-12-14 16:13:56.031826 PST | Entropy                     1.41137
+2019-12-14 16:13:56.031930 PST | Perplexity                  4.10156
+2019-12-14 16:13:56.032032 PST | StdReturn                  38.8125
+2019-12-14 16:13:56.032135 PST | MaxReturn                 309.831
+2019-12-14 16:13:56.032238 PST | MinReturn                   0
+2019-12-14 16:13:56.032340 PST | AveragePolicyStd            0.992458
+2019-12-14 16:13:56.032442 PST | LossBefore                  1.21445e-08
+2019-12-14 16:13:56.032544 PST | LossAfter                  -0.0657541
+2019-12-14 16:13:56.032647 PST | MeanKLBefore                0
+2019-12-14 16:13:56.032749 PST | MeanKL                      0.0185841
+2019-12-14 16:13:56.032880 PST | dLoss                       0.0657541
+2019-12-14 16:13:56.032984 PST | Time                        6.45038
+2019-12-14 16:13:56.033086 PST | ItrTime                     2.7945
+2019-12-14 16:13:56.033188 PST | -----------------------  --------------
+2019-12-14 16:13:56.033376 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Obtaining samples...
+2019-12-14 16:13:57.962909 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Processing samples...
+2019-12-14 16:13:58.146219 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | fitting baseline...
+2019-12-14 16:13:58.233295 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | fitted
+2019-12-14 16:13:58.249615 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Logging diagnostics...
+2019-12-14 16:13:58.255136 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Optimizing policy...
+2019-12-14 16:13:58.255651 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Computing loss before
+2019-12-14 16:13:58.259219 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Computing KL before
+2019-12-14 16:13:58.262116 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Optimizing
+2019-12-14 16:13:58.263573 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Start CG optimization: #parameters: 20952, #inputs: 20131, #subsample_inputs: 20131
+2019-12-14 16:13:58.263958 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | computing loss before
+2019-12-14 16:13:58.266745 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | performing update
+2019-12-14 16:13:58.267119 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | computing gradient
+2019-12-14 16:13:58.272515 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | gradient computed
+2019-12-14 16:13:58.272903 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | computing descent direction
+2019-12-14 16:13:58.396585 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | descent direction computed
+2019-12-14 16:13:58.404770 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | backtrack iters: 1
+2019-12-14 16:13:58.405017 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | computing loss after
+2019-12-14 16:13:58.405189 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | optimization finished
+2019-12-14 16:13:58.405350 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Computing KL after
+2019-12-14 16:13:58.407583 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Computing loss after
+2019-12-14 16:13:58.410143 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Saving snapshot...
+2019-12-14 16:13:58.416505 PST | [experiment_2019_12_14_16_13_46_0001] itr #2 | Saved
+2019-12-14 16:13:58.417292 PST | -----------------------  --------------
+2019-12-14 16:13:58.417416 PST | Iteration                   2
+2019-12-14 16:13:58.417529 PST | AverageDiscountedReturn    74.048
+2019-12-14 16:13:58.417637 PST | AverageReturn              74.048
+2019-12-14 16:13:58.417773 PST | ExplainedVariance           0.158294
+2019-12-14 16:13:58.417891 PST | NumTrajs                 2394
+2019-12-14 16:13:58.417998 PST | Entropy                     1.40253
+2019-12-14 16:13:58.418113 PST | Perplexity                  4.06547
+2019-12-14 16:13:58.418216 PST | StdReturn                  55.3985
+2019-12-14 16:13:58.418334 PST | MaxReturn                 379.932
+2019-12-14 16:13:58.418449 PST | MinReturn                   0
+2019-12-14 16:13:58.418553 PST | AveragePolicyStd            0.983724
+2019-12-14 16:13:58.418671 PST | LossBefore                  1.06116e-08
+2019-12-14 16:13:58.418777 PST | LossAfter                  -0.0547092
+2019-12-14 16:13:58.418881 PST | MeanKLBefore                0
+2019-12-14 16:13:58.418985 PST | MeanKL                      0.0163714
+2019-12-14 16:13:58.419088 PST | dLoss                       0.0547092
+2019-12-14 16:13:58.419191 PST | Time                        8.83645
+2019-12-14 16:13:58.419294 PST | ItrTime                     2.38329
+2019-12-14 16:13:58.419397 PST | -----------------------  --------------
+2019-12-14 16:13:58.419584 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Obtaining samples...
+2019-12-14 16:14:00.131216 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Processing samples...
+2019-12-14 16:14:00.261197 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | fitting baseline...
+2019-12-14 16:14:00.331842 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | fitted
+2019-12-14 16:14:00.342602 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Logging diagnostics...
+2019-12-14 16:14:00.345219 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Optimizing policy...
+2019-12-14 16:14:00.345402 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Computing loss before
+2019-12-14 16:14:00.348300 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Computing KL before
+2019-12-14 16:14:00.350433 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Optimizing
+2019-12-14 16:14:00.351346 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Start CG optimization: #parameters: 20952, #inputs: 20165, #subsample_inputs: 20165
+2019-12-14 16:14:00.351451 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | computing loss before
+2019-12-14 16:14:00.353475 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | performing update
+2019-12-14 16:14:00.353590 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | computing gradient
+2019-12-14 16:14:00.357584 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | gradient computed
+2019-12-14 16:14:00.357703 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | computing descent direction
+2019-12-14 16:14:00.477218 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | descent direction computed
+2019-12-14 16:14:00.486756 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | backtrack iters: 1
+2019-12-14 16:14:00.487018 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | computing loss after
+2019-12-14 16:14:00.487190 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | optimization finished
+2019-12-14 16:14:00.487356 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Computing KL after
+2019-12-14 16:14:00.489695 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Computing loss after
+2019-12-14 16:14:00.492035 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Saving snapshot...
+2019-12-14 16:14:00.500582 PST | [experiment_2019_12_14_16_13_46_0001] itr #3 | Saved
+2019-12-14 16:14:00.501710 PST | -----------------------  --------------
+2019-12-14 16:14:00.501896 PST | Iteration                   3
+2019-12-14 16:14:00.502080 PST | AverageDiscountedReturn   104.465
+2019-12-14 16:14:00.502206 PST | AverageReturn             104.465
+2019-12-14 16:14:00.502330 PST | ExplainedVariance           0.137973
+2019-12-14 16:14:00.502451 PST | NumTrajs                 1761
+2019-12-14 16:14:00.502575 PST | Entropy                     1.37611
+2019-12-14 16:14:00.502695 PST | Perplexity                  3.95948
+2019-12-14 16:14:00.502815 PST | StdReturn                  78.6656
+2019-12-14 16:14:00.502934 PST | MaxReturn                 499.903
+2019-12-14 16:14:00.503053 PST | MinReturn                   0
+2019-12-14 16:14:00.503172 PST | AveragePolicyStd            0.958079
+2019-12-14 16:14:00.503290 PST | LossBefore                  1.36205e-08
+2019-12-14 16:14:00.503409 PST | LossAfter                  -0.046943
+2019-12-14 16:14:00.503527 PST | MeanKLBefore                0
+2019-12-14 16:14:00.503645 PST | MeanKL                      0.0155272
+2019-12-14 16:14:00.503763 PST | dLoss                       0.046943
+2019-12-14 16:14:00.503881 PST | Time                       10.9206
+2019-12-14 16:14:00.504000 PST | ItrTime                     2.08122
+2019-12-14 16:14:00.504108 PST | -----------------------  --------------
+2019-12-14 16:14:00.504319 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Obtaining samples...
+2019-12-14 16:14:02.051587 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Processing samples...
+2019-12-14 16:14:02.146469 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | fitting baseline...
+2019-12-14 16:14:02.206296 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | fitted
+2019-12-14 16:14:02.214049 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Logging diagnostics...
+2019-12-14 16:14:02.216728 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Optimizing policy...
+2019-12-14 16:14:02.216933 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Computing loss before
+2019-12-14 16:14:02.219779 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Computing KL before
+2019-12-14 16:14:02.221684 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Optimizing
+2019-12-14 16:14:02.222547 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Start CG optimization: #parameters: 20952, #inputs: 20277, #subsample_inputs: 20277
+2019-12-14 16:14:02.222652 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | computing loss before
+2019-12-14 16:14:02.224668 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | performing update
+2019-12-14 16:14:02.224806 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | computing gradient
+2019-12-14 16:14:02.229168 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | gradient computed
+2019-12-14 16:14:02.229322 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | computing descent direction
+2019-12-14 16:14:02.351987 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | descent direction computed
+2019-12-14 16:14:02.362065 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | backtrack iters: 1
+2019-12-14 16:14:02.362317 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | computing loss after
+2019-12-14 16:14:02.362466 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | optimization finished
+2019-12-14 16:14:02.362619 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Computing KL after
+2019-12-14 16:14:02.365198 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Computing loss after
+2019-12-14 16:14:02.367869 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Saving snapshot...
+2019-12-14 16:14:02.375869 PST | [experiment_2019_12_14_16_13_46_0001] itr #4 | Saved
+2019-12-14 16:14:02.376871 PST | -----------------------  --------------
+2019-12-14 16:14:02.377037 PST | Iteration                   4
+2019-12-14 16:14:02.377186 PST | AverageDiscountedReturn   152.288
+2019-12-14 16:14:02.377329 PST | AverageReturn             152.288
+2019-12-14 16:14:02.377480 PST | ExplainedVariance           0.18845
+2019-12-14 16:14:02.377625 PST | NumTrajs                 1249
+2019-12-14 16:14:02.377767 PST | Entropy                     1.33926
+2019-12-14 16:14:02.377908 PST | Perplexity                  3.81621
+2019-12-14 16:14:02.378048 PST | StdReturn                 102.607
+2019-12-14 16:14:02.378163 PST | MaxReturn                 499.877
+2019-12-14 16:14:02.378237 PST | MinReturn                   0
+2019-12-14 16:14:02.378312 PST | AveragePolicyStd            0.92341
+2019-12-14 16:14:02.378387 PST | LossBefore                  2.10705e-08
+2019-12-14 16:14:02.378462 PST | LossAfter                  -0.0419553
+2019-12-14 16:14:02.378536 PST | MeanKLBefore                0
+2019-12-14 16:14:02.378610 PST | MeanKL                      0.0161279
+2019-12-14 16:14:02.378685 PST | dLoss                       0.0419554
+2019-12-14 16:14:02.378759 PST | Time                       12.7959
+2019-12-14 16:14:02.378833 PST | ItrTime                     1.87176
+2019-12-14 16:14:02.378907 PST | -----------------------  --------------
+2019-12-14 16:14:02.379052 PST | [experiment_2019_12_14_16_13_46_0001] itr #5 | Obtaining samples...
+2019-12-14 16:14:49.361640 PST | [experiment_2019_12_14_16_14_46_0001] Populating workers...
+2019-12-14 16:14:49.660669 PST | [experiment_2019_12_14_16_14_46_0001] Populated
+2019-12-14 16:14:49.700094 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Obtaining samples...
+2019-12-14 16:14:51.484021 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Processing samples...
+2019-12-14 16:14:51.564885 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | fitting baseline...
+2019-12-14 16:14:51.654938 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | fitted
+2019-12-14 16:14:51.657875 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Logging diagnostics...
+2019-12-14 16:14:51.661743 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Optimizing policy...
+2019-12-14 16:14:51.662230 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Computing loss before
+2019-12-14 16:14:51.883700 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Computing KL before
+2019-12-14 16:14:51.906537 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Optimizing
+2019-12-14 16:14:51.907578 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Start CG optimization: #parameters: 20952, #inputs: 20114, #subsample_inputs: 20114
+2019-12-14 16:14:51.907680 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | computing loss before
+2019-12-14 16:14:51.909898 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | performing update
+2019-12-14 16:14:51.910007 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | computing gradient
+2019-12-14 16:14:51.972847 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | gradient computed
+2019-12-14 16:14:51.973035 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | computing descent direction
+2019-12-14 16:14:52.747584 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | descent direction computed
+2019-12-14 16:14:52.855683 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | backtrack iters: 6
+2019-12-14 16:14:52.855947 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | computing loss after
+2019-12-14 16:14:52.856107 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | optimization finished
+2019-12-14 16:14:52.856272 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Computing KL after
+2019-12-14 16:14:52.858708 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Computing loss after
+2019-12-14 16:14:52.861123 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Saving snapshot...
+2019-12-14 16:14:52.867762 PST | [experiment_2019_12_14_16_14_46_0001] itr #0 | Saved
+2019-12-14 16:14:52.868487 PST | -----------------------  --------------
+2019-12-14 16:14:52.868610 PST | Iteration                   0
+2019-12-14 16:14:52.868720 PST | AverageDiscountedReturn    85.774
+2019-12-14 16:14:52.868835 PST | AverageReturn              85.774
+2019-12-14 16:14:52.868943 PST | ExplainedVariance           4.07685e-12
+2019-12-14 16:14:52.869055 PST | NumTrajs                 2099
+2019-12-14 16:14:52.869160 PST | Entropy                     1.41894
+2019-12-14 16:14:52.869263 PST | Perplexity                  4.13273
+2019-12-14 16:14:52.869366 PST | StdReturn                  50.692
+2019-12-14 16:14:52.869468 PST | MaxReturn                 369.955
+2019-12-14 16:14:52.869573 PST | MinReturn                   9.98145
+2019-12-14 16:14:52.869677 PST | AveragePolicyStd            1
+2019-12-14 16:14:52.869780 PST | LossBefore                  3.03446e-09
+2019-12-14 16:14:52.869883 PST | LossAfter                  -0.0134787
+2019-12-14 16:14:52.869986 PST | MeanKLBefore                0
+2019-12-14 16:14:52.870089 PST | MeanKL                      0.0167289
+2019-12-14 16:14:52.870193 PST | dLoss                       0.0134787
+2019-12-14 16:14:52.870295 PST | Time                        3.16788
+2019-12-14 16:14:52.870398 PST | ItrTime                     3.16788
+2019-12-14 16:14:52.870520 PST | -----------------------  --------------
+2019-12-14 16:14:52.870732 PST | [experiment_2019_12_14_16_14_46_0001] itr #1 | Obtaining samples...
+2019-12-14 16:24:01.246104 PST | [experiment_2019_12_14_16_23_52_0001] Populating workers...
+2019-12-14 16:25:46.085249 PST | [experiment_2019_12_14_16_23_52_0001] Populated
+2019-12-14 16:25:46.121056 PST | [experiment_2019_12_14_16_23_52_0001] itr #0 | Obtaining samples...
+2019-12-14 16:26:29.722431 PST | [experiment_2019_12_14_16_26_20_0001] Populating workers...
+2019-12-14 16:26:38.755270 PST | [experiment_2019_12_14_16_26_20_0001] Populated
+2019-12-14 16:26:38.790539 PST | [experiment_2019_12_14_16_26_20_0001] itr #0 | Obtaining samples...
+2019-12-14 16:32:20.404317 PST | [experiment_2019_12_14_16_32_11_0001] Populating workers...
+2019-12-14 16:32:29.294247 PST | [experiment_2019_12_14_16_32_11_0001] Populated
+2019-12-14 16:32:29.329692 PST | [experiment_2019_12_14_16_32_11_0001] itr #0 | Obtaining samples...
+2019-12-14 16:32:31.407780 PST | [experiment_2019_12_14_16_32_11_0001] itr #0 | Processing samples...
+2019-12-14 16:32:31.439648 PST | [experiment_2019_12_14_16_32_11_0001] itr #0 | fitting baseline...
+2019-12-14 16:32:31.468226 PST | [experiment_2019_12_14_16_32_11_0001] itr #0 | fitted
+2019-12-14 16:32:31.469192 PST | [experiment_2019_12_14_16_32_11_0001] itr #0 | Logging diagnostics...
+2019-12-14 16:35:59.378879 PST | [experiment_2019_12_14_16_35_50_0001] Populating workers...
+2019-12-14 16:36:08.131880 PST | [experiment_2019_12_14_16_35_50_0001] Populated
+2019-12-14 16:36:08.168264 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Obtaining samples...
+2019-12-14 16:36:10.243355 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Processing samples...
+2019-12-14 16:36:10.270070 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | fitting baseline...
+2019-12-14 16:36:10.297874 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | fitted
+2019-12-14 16:36:10.298858 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Logging diagnostics...
+2019-12-14 16:36:10.300485 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Optimizing policy...
+2019-12-14 16:36:10.300665 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Computing loss before
+2019-12-14 16:36:10.518780 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Computing KL before
+2019-12-14 16:36:10.541695 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Optimizing
+2019-12-14 16:36:10.542808 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Start CG optimization: #parameters: 21408, #inputs: 20550, #subsample_inputs: 20550
+2019-12-14 16:36:10.542912 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | computing loss before
+2019-12-14 16:36:10.545584 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | performing update
+2019-12-14 16:36:10.545699 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | computing gradient
+2019-12-14 16:36:10.610652 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | gradient computed
+2019-12-14 16:36:10.610841 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | computing descent direction
+2019-12-14 16:36:11.309148 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | descent direction computed
+2019-12-14 16:36:11.398722 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | backtrack iters: 1
+2019-12-14 16:36:11.398890 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | computing loss after
+2019-12-14 16:36:11.398969 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | optimization finished
+2019-12-14 16:36:11.399058 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Computing KL after
+2019-12-14 16:36:11.401604 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Computing loss after
+2019-12-14 16:36:11.404345 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Saving snapshot...
+2019-12-14 16:36:11.411126 PST | [experiment_2019_12_14_16_35_50_0001] itr #0 | Saved
+2019-12-14 16:36:11.411941 PST | -----------------------  ---------------
+2019-12-14 16:36:11.412065 PST | Iteration                    0
+2019-12-14 16:36:11.412174 PST | AverageDiscountedReturn   5208.39
+2019-12-14 16:36:11.412281 PST | AverageReturn             5208.39
+2019-12-14 16:36:11.412386 PST | ExplainedVariance            2.22045e-15
+2019-12-14 16:36:11.412490 PST | NumTrajs                   411
+2019-12-14 16:36:11.412594 PST | Entropy                      5.67575
+2019-12-14 16:36:11.412698 PST | Perplexity                 291.708
+2019-12-14 16:36:11.412800 PST | StdReturn                 2028.18
+2019-12-14 16:36:11.412923 PST | MaxReturn                15646.2
+2019-12-14 16:36:11.413027 PST | MinReturn                  752.196
+2019-12-14 16:36:11.413130 PST | AveragePolicyStd             1
+2019-12-14 16:36:11.413233 PST | LossBefore                  -3.7126e-09
+2019-12-14 16:36:11.413336 PST | LossAfter                   -0.0161069
+2019-12-14 16:36:11.413438 PST | MeanKLBefore                 0
+2019-12-14 16:36:11.413541 PST | MeanKL                       0.0129878
+2019-12-14 16:36:11.413644 PST | dLoss                        0.0161069
+2019-12-14 16:36:11.413747 PST | Time                         3.24306
+2019-12-14 16:36:11.413849 PST | ItrTime                      3.24306
+2019-12-14 16:36:11.413952 PST | -----------------------  ---------------
+2019-12-14 16:36:11.414177 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Obtaining samples...
+2019-12-14 16:36:13.423638 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Processing samples...
+2019-12-14 16:36:13.468056 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | fitting baseline...
+2019-12-14 16:36:13.495593 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | fitted
+2019-12-14 16:36:13.501168 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Logging diagnostics...
+2019-12-14 16:36:13.503359 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Optimizing policy...
+2019-12-14 16:36:13.503548 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Computing loss before
+2019-12-14 16:36:13.507520 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Computing KL before
+2019-12-14 16:36:13.510553 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Optimizing
+2019-12-14 16:36:13.511592 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Start CG optimization: #parameters: 21408, #inputs: 20550, #subsample_inputs: 20550
+2019-12-14 16:36:13.511724 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | computing loss before
+2019-12-14 16:36:13.514745 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | performing update
+2019-12-14 16:36:13.514883 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | computing gradient
+2019-12-14 16:36:13.520266 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | gradient computed
+2019-12-14 16:36:13.520402 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | computing descent direction
+2019-12-14 16:36:13.646027 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | descent direction computed
+2019-12-14 16:36:13.654126 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | backtrack iters: 1
+2019-12-14 16:36:13.654270 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | computing loss after
+2019-12-14 16:36:13.654348 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | optimization finished
+2019-12-14 16:36:13.654448 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Computing KL after
+2019-12-14 16:36:13.656963 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Computing loss after
+2019-12-14 16:36:13.659584 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Saving snapshot...
+2019-12-14 16:36:13.664455 PST | [experiment_2019_12_14_16_35_50_0001] itr #1 | Saved
+2019-12-14 16:36:13.665058 PST | -----------------------  ---------------
+2019-12-14 16:36:13.665147 PST | Iteration                    1
+2019-12-14 16:36:13.665225 PST | AverageDiscountedReturn   6711.35
+2019-12-14 16:36:13.665304 PST | AverageReturn             6711.35
+2019-12-14 16:36:13.665380 PST | ExplainedVariance            0.53095
+2019-12-14 16:36:13.665454 PST | NumTrajs                   411
+2019-12-14 16:36:13.665534 PST | Entropy                      5.67935
+2019-12-14 16:36:13.665609 PST | Perplexity                 292.76
+2019-12-14 16:36:13.665706 PST | StdReturn                 2551.54
+2019-12-14 16:36:13.665780 PST | MaxReturn                19616.4
+2019-12-14 16:36:13.665869 PST | MinReturn                 1946.44
+2019-12-14 16:36:13.665945 PST | AveragePolicyStd             1.00091
+2019-12-14 16:36:13.666029 PST | LossBefore                  -2.97008e-09
+2019-12-14 16:36:13.666105 PST | LossAfter                   -0.0230007
+2019-12-14 16:36:13.666179 PST | MeanKLBefore                 0
+2019-12-14 16:36:13.666264 PST | MeanKL                       0.0167501
+2019-12-14 16:36:13.666338 PST | dLoss                        0.0230007
+2019-12-14 16:36:13.666423 PST | Time                         5.49635
+2019-12-14 16:36:13.666497 PST | ItrTime                      2.2504
+2019-12-14 16:36:13.666585 PST | -----------------------  ---------------
+2019-12-14 16:36:13.666731 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Obtaining samples...
+2019-12-14 16:36:15.681054 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Processing samples...
+2019-12-14 16:36:15.728268 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | fitting baseline...
+2019-12-14 16:36:15.749283 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | fitted
+2019-12-14 16:36:15.755269 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Logging diagnostics...
+2019-12-14 16:36:15.757530 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Optimizing policy...
+2019-12-14 16:36:15.757959 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Computing loss before
+2019-12-14 16:36:15.762347 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Computing KL before
+2019-12-14 16:36:15.765889 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Optimizing
+2019-12-14 16:36:15.767367 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | Start CG optimization: #parameters: 21408, #inputs: 20550, #subsample_inputs: 20550
+2019-12-14 16:36:15.767754 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | computing loss before
+2019-12-14 16:36:15.771071 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | performing update
+2019-12-14 16:36:15.771303 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | computing gradient
+2019-12-14 16:36:15.777812 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | gradient computed
+2019-12-14 16:36:15.777976 PST | [experiment_2019_12_14_16_35_50_0001] itr #2 | computing descent direction

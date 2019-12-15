@@ -20,7 +20,8 @@ from rllab.misc.instrument import stub, run_experiment_lite
 def run_task(args,*_):
     
     #env = TfEnv(normalize(dnc_envs.create_stochastic('pick'))) # Cannot be solved easily by TRPO
-    env = TfEnv(normalize(CartpoleEnv()))
+    #env = TfEnv(normalize(CartpoleEnv()))
+    env = TfEnv(CartpoleEnv())
     #metaworld_env = ML1.get_train_tasks("pick-place-v1")
     #tasks = metaworld_env.sample_tasks(1)
     #metaworld_env.set_task(tasks[0])
