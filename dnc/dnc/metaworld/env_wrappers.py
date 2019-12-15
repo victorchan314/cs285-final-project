@@ -35,3 +35,14 @@ class ML10Wrapper(gym.Env):
 
     def set_param_values(self, params):
         pass
+
+    def get_partitions(self):
+        partitions = []
+
+        # ML10 has 10 meta-train tasks, each with their own variations
+        # For now just using the meta-train tasks as partitions
+        # maybe in the future we can use variations too
+        num_partitions = 10
+        partitions = self._task_envs
+
+        return partitions
