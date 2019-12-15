@@ -1,7 +1,6 @@
 # Environment Imports
 from sandbox.rocky.tf.envs.base import TfEnv
 from rllab.envs.normalized_env import normalize
-from rllab.envs.gym_env import convert_gym_space
 #import dnc.envs as dnc_envs
 
 from metaworld.benchmarks import ML1
@@ -28,10 +27,8 @@ def run_task(args,*_):
 #    env = TfEnv(normalize(metaworld_env))
 
     metaworld_env = ML10.get_train_tasks()
-    metaworld_env._observation_space = convert_gym_space(metaworld_env.observation_space)
-    metaworld_env._action_space = convert_gym_space(metaworld_env.action_space)
-    env = TfEnv(normalize(metaworld_env))
-    env = ML10Wrapper(env)
+    wrapped_env = ML10Wrapper(metaworld_env)
+    env = TfEnv(wrapped_env)
 
     policy = GaussianMLPPolicy(
         name="policy",
