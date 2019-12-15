@@ -24,6 +24,9 @@ class ML10Wrapper(gym.Env):
     def close(self):
         return self._wrapped_env.close()
 
+    def terminate(self):
+        return self.close()
+
     def seed(self, seed=None):
         return self._wrapped_env.seed(seed)
 
