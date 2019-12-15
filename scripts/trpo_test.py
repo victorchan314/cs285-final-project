@@ -48,7 +48,7 @@ def run_task(args,*_):
         env=env,
         policy=policy,
         baseline=baseline,
-        batch_size=10000,
+        batch_size=1,
         force_batch_sampler=True,
         max_path_length=50,
         discount=1,
