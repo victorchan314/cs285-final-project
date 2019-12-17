@@ -36,6 +36,8 @@ class BatchPolopt(RLAlgorithm):
             sampler_cls=None,
             sampler_args=None,
             force_batch_sampler=False,
+            test_env=None,
+            init_opt=True,
             **kwargs
     ):
         """
@@ -84,7 +86,38 @@ class BatchPolopt(RLAlgorithm):
         if sampler_args is None:
             sampler_args = dict()
         self.sampler = sampler_cls(self, **sampler_args)
-        self.init_opt()
+
+        self.test_env = test_env
+        if not self.test_env is None:
+            test_batch_polopt = BatchPolopt(
+                    self.test_env,
+                    policy,
+                    baseline,
+                    scope,
+                    n_itr,
+                    start_itr,
+                    batch_size,
+                    max_path_length,
+                    discount,
+                    gae_lambda,
+                    plot,
+                    pause_for_plot,
+                    center_adv,
+                    positive_adv,
+                    store_paths,
+                    whole_paths,
+                    fixed_horizon,
+                    sampler_cls,
+                    sampler_args,
+                    force_batch_sampler,
+                    test_env=None,
+                    init_opt=False,
+                    **kwargs
+            )
+            self.test_sampler = sampler_cls(test_batch_polopt, **sampler_args)
+
+        if init_opt:
+            self.init_opt()
 
     def start_worker(self):
         self.sampler.start_worker()
@@ -118,6 +151,13 @@ class BatchPolopt(RLAlgorithm):
                 self.log_diagnostics(paths)
                 logger.log("Optimizing policy...")
                 self.optimize_policy(itr, samples_data)
+
+                if not self.test_env is None:
+                    logger.log("Obtaining test samples...")
+                    test_paths = self.test_sampler.obtain_samples(itr)
+                    with logger.tabular_prefix("Test"):
+                        self.test_sampler.process_samples(itr, test_paths)
+
                 logger.log("Saving snapshot...")
                 params = self.get_itr_snapshot(itr, samples_data)  # , **kwargs)
                 if self.store_paths:
