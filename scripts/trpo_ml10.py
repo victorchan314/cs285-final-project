@@ -56,7 +56,7 @@ def run_task(args,*_):
 
 run_experiment_lite(
     run_task,
-    log_dir='data/trpo/pick',
+    log_dir='data/trpo/ml10',
     n_parallel=12,
     snapshot_mode="last",
     seed=1,
