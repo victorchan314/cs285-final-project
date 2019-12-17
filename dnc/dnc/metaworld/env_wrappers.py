@@ -1,9 +1,8 @@
 import gym
-from metaworld.benchmarks import ML10
 from rllab.envs.env_spec import EnvSpec
 from rllab.envs.gym_env import convert_gym_space
 
-class ML10Wrapper(gym.Env):
+class MetaworldWrapper(gym.Env):
     def __init__(self, wrapped_env):
         self.__wrapped_env = wrapped_env
         observation_space = wrapped_env.observation_space
@@ -31,7 +30,7 @@ class ML10Wrapper(gym.Env):
         return self.__wrapped_env.seed(seed)
 
     def log_diagnostics(self, paths):
-        self.__wrapped_env.log_diagnostics(paths, "ML10Wrapper")
+        self.__wrapped_env.log_diagnostics(paths, "MetaworldWrapper")
 
     def get_param_values(self):
         return None
@@ -40,12 +39,8 @@ class ML10Wrapper(gym.Env):
         pass
 
     def get_partitions(self):
-        partitions = []
-
-        # ML10 has 10 meta-train tasks, each with their own variations
         # For now just using the meta-train tasks as partitions
         # maybe in the future we can use variations too
-        num_partitions = 10
-        partitions = [ML10Wrapper(x) for x in self.__wrapped_env._task_envs]
+        partitions = [MetaworldWrapper(x) for x in self.__wrapped_env._task_envs]
 
         return partitions

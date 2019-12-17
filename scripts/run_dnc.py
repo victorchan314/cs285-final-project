@@ -1,9 +1,12 @@
+import argparse
+import datetime as dt
+
 # Environment Imports
 from sandbox.rocky.tf.envs.base import TfEnv
 from rllab.envs.normalized_env import normalize
 
-from metaworld.benchmarks import ML10
-from dnc.metaworld.env_wrappers import ML10Wrapper
+from metaworld.benchmarks import ML10, ML45
+from dnc.metaworld.env_wrappers import MetaworldWrapper
 
 # Algo Imports
 
@@ -15,16 +18,20 @@ from sandbox.rocky.tf.policies.gaussian_mlp_policy import GaussianMLPPolicy
 
 from rllab.misc.instrument import stub, run_experiment_lite
 
+
+benchmark = None
+
+
 def run_task(args,*_):
 
-    metaworld_train_env = ML10.get_train_tasks()
-    wrapped_train_env = ML10Wrapper(metaworld_train_env)
+    metaworld_train_env = benchmark.get_train_tasks()
+    wrapped_train_env = MetaworldWrapper(metaworld_train_env)
     env = TfEnv(wrapped_train_env)
     wrapped_train_env_partitions = wrapped_train_env.get_partitions()
     partitions = [TfEnv(partition) for partition in wrapped_train_env_partitions]
 
-    metaworld_test_env = ML10.get_test_tasks()
-    wrapped_test_env = ML10Wrapper(metaworld_test_env)
+    metaworld_test_env = benchmark.get_test_tasks()
+    wrapped_test_env = MetaworldWrapper(metaworld_test_env)
     test_env = TfEnv(wrapped_test_env)
     
     policy_class = GaussianMLPPolicy
@@ -52,12 +59,25 @@ def run_task(args,*_):
     
     algo.train()
 
-run_experiment_lite(
-    run_task,
-    log_dir='data/dnc/ml10',
-    n_parallel=12,
-    snapshot_mode="last",
-    seed=1,
-    variant=dict(),
-    use_cloudpickle=True,
-)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--benchmark", "--b", help="ml10 or ml45")
+    args = parser.parse_args()
+
+    if args.benchmark == "ml10":
+        benchmark = ML10
+    elif args.benchmark == "ml45":
+        benchmark = ML45
+    else:
+        raise ValueError("Invalid benchmark {}".format(args.benchmark))
+
+    run_experiment_lite(
+        run_task,
+        log_dir='data/dnc/{}_{}'.format(args.benchmark, dt.datetime.today().strftime("%Y-%m-%d_%H-%M-%S")),
+        n_parallel=12,
+        snapshot_mode="last",
+        seed=1,
+        variant=dict(),
+        use_cloudpickle=True,
+    )
