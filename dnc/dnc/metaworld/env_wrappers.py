@@ -5,7 +5,7 @@ from rllab.envs.gym_env import convert_gym_space
 
 class ML10Wrapper(gym.Env):
     def __init__(self, wrapped_env):
-        self._wrapped_env = wrapped_env
+        self.__wrapped_env = wrapped_env
         observation_space = wrapped_env.observation_space
         action_space = wrapped_env.action_space
         self.observation_space = convert_gym_space(observation_space)
@@ -13,25 +13,25 @@ class ML10Wrapper(gym.Env):
         self.spec = EnvSpec(self.observation_space, self.action_space)
 
     def step(self, action):
-        return self._wrapped_env.step(action)
+        return self.__wrapped_env.step(action)
 
     def reset(self):
-        return self._wrapped_env.reset()
+        return self.__wrapped_env.reset()
 
     def render(self, mode="human"):
-        return self._wrapped_env.render(mode)
+        return self.__wrapped_env.render(mode)
 
     def close(self):
-        return self._wrapped_env.close()
+        return self.__wrapped_env.close()
 
     def terminate(self):
         return self.close()
 
     def seed(self, seed=None):
-        return self._wrapped_env.seed(seed)
+        return self.__wrapped_env.seed(seed)
 
     def log_diagnostics(self, paths):
-        self._wrapped_env.log_diagnostics(paths, "ML10Wrapper")
+        self.__wrapped_env.log_diagnostics(paths, "ML10Wrapper")
 
     def get_param_values(self):
         return None
@@ -46,6 +46,6 @@ class ML10Wrapper(gym.Env):
         # For now just using the meta-train tasks as partitions
         # maybe in the future we can use variations too
         num_partitions = 10
-        partitions = self._wrapped_env._task_envs
+        partitions = [ML10Wrapper(x) for x in self.__wrapped_env._task_envs]
 
         return partitions
