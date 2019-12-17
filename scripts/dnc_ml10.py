@@ -1,7 +1,6 @@
 # Environment Imports
 from sandbox.rocky.tf.envs.base import TfEnv
 from rllab.envs.normalized_env import normalize
-#import dnc.envs as dnc_envs
 
 from metaworld.benchmarks import ML10
 from dnc.metaworld.env_wrappers import ML10Wrapper
@@ -18,11 +17,15 @@ from rllab.misc.instrument import stub, run_experiment_lite
 
 def run_task(args,*_):
 
-    metaworld_env = ML10.get_train_tasks()
-    wrapped_env = ML10Wrapper(metaworld_env)
-    env = TfEnv(wrapped_env)
-    wrapped_env_partitions = wrapped_env.get_partitions()
-    partitions = [TfEnv(partition) for partition in wrapped_env_partitions]
+    metaworld_train_env = ML10.get_train_tasks()
+    wrapped_train_env = ML10Wrapper(metaworld_train_env)
+    env = TfEnv(wrapped_train_env)
+    wrapped_train_env_partitions = wrapped_train_env.get_partitions()
+    partitions = [TfEnv(partition) for partition in wrapped_train_env_partitions]
+
+    metaworld_test_env = ML10.get_test_tasks()
+    wrapped_test_env = ML10Wrapper(metaworld_test_env)
+    test_env = TfEnv(wrapped_test_env)
     
     policy_class = GaussianMLPPolicy
     policy_kwargs = dict(
@@ -34,6 +37,7 @@ def run_task(args,*_):
 
     algo = dnc_trpo.TRPO(
         env=env,
+        test_env=test_env,
         partitions=partitions,
         policy_class=policy_class,
         policy_kwargs=policy_kwargs,

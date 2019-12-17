@@ -1,9 +1,7 @@
 # Environment Imports
 from sandbox.rocky.tf.envs.base import TfEnv
 from rllab.envs.normalized_env import normalize
-#import dnc.envs as dnc_envs
 
-from metaworld.benchmarks import ML1
 from metaworld.benchmarks import ML10
 from dnc.metaworld.env_wrappers import ML10Wrapper
 
@@ -18,17 +16,13 @@ from sandbox.rocky.tf.policies.gaussian_mlp_policy import GaussianMLPPolicy
 from rllab.misc.instrument import stub, run_experiment_lite
 
 def run_task(args,*_):
-    
-#    metaworld_env = ML1.get_train_tasks("pick-place-v1")
-#    tasks = metaworld_env.sample_tasks(1)
-#    metaworld_env.set_task(tasks[0])
-#    metaworld_env._observation_space = convert_gym_space(metaworld_env.observation_space)
-#    metaworld_env._action_space = convert_gym_space(metaworld_env.action_space)
-#    env = TfEnv(normalize(metaworld_env))
+    metaworld_train_env = ML10.get_train_tasks()
+    wrapped_train_env = ML10Wrapper(metaworld_train_env)
+    env = TfEnv(wrapped_train_env)
 
-    metaworld_env = ML10.get_train_tasks()
-    wrapped_env = ML10Wrapper(metaworld_env)
-    env = TfEnv(wrapped_env)
+    metaworld_test_env = ML10.get_test_tasks()
+    wrapped_test_env = ML10Wrapper(metaworld_test_env)
+    test_env = TfEnv(wrapped_test_env)
 
     policy = GaussianMLPPolicy(
         name="policy",
@@ -41,6 +35,7 @@ def run_task(args,*_):
 
     algo = TRPO(
         env=env,
+        test_env=test_env,
         policy=policy,
         baseline=baseline,
         batch_size=20000,

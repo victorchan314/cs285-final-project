@@ -41,6 +41,7 @@ class BatchPolopt(RLAlgorithm):
             whole_paths=True,
             fixed_horizon=False,
             force_batch_sampler=False,
+            test_env=None,
             **kwargs
     ):
         """
@@ -141,6 +142,24 @@ class BatchPolopt(RLAlgorithm):
                 force_batch_sampler=force_batch_sampler
         )
 
+        self.test_env = test_env
+        if not self.test_env is None:
+            self.test_sampler = Sampler(
+                    env=self.test_env,
+                    policy=self.policy,
+                    baseline=self.baseline,
+                    scope=scope,
+                    batch_size=batch_size,
+                    max_path_length=max_path_length,
+                    discount=discount,
+                    gae_lambda=gae_lambda,
+                    center_adv=center_adv,
+                    positive_adv=positive_adv,
+                    whole_paths=whole_paths,
+                    fixed_horizon=fixed_horizon,
+                    force_batch_sampler=force_batch_sampler
+            )
+
         self.init_opt()
 
     def start_worker(self):
@@ -186,6 +205,12 @@ class BatchPolopt(RLAlgorithm):
 
                 logger.log("Optimizing policy...")
                 self.optimize_policy(itr, all_samples_data)
+
+                if not self.test_env is None:
+                    logger.log("Obtaining test samples...")
+                    test_paths = self.test_sampler.obtain_samples(itr)
+                    with logger.tabular_prefix("Test"):
+                        self.test_sampler.process_samples(itr, test_paths)
 
                 logger.log("Saving snapshot...")
                 params = self.get_itr_snapshot(itr, all_samples_data)  # , **kwargs)
