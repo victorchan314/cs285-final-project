@@ -5,7 +5,7 @@ import datetime as dt
 from sandbox.rocky.tf.envs.base import TfEnv
 from rllab.envs.normalized_env import normalize
 
-from metaworld.benchmarks import ML10, ML45
+from metaworld.benchmarks import ML10, ML45, MT10, MT50
 from dnc.metaworld.env_wrappers import MetaworldWrapper
 
 # Algo Imports
@@ -65,6 +65,10 @@ if __name__ == "__main__":
         benchmark = ML10
     elif args.benchmark == "ml45":
         benchmark = ML45
+    elif args.benchmark == "mt10":
+        benchmark = MT10
+    elif args.benchmark == "mt50":
+        benchmark = MT50
     else:
         raise ValueError("Invalid benchmark {}".format(args.benchmark))
 
