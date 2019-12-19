@@ -45,7 +45,7 @@ class BatchPolopt(RLAlgorithm):
             force_batch_sampler=False,
             test_env=None,
             save_data=False,
-            optimize_policy=True,
+            should_optimize_policy=True,
             **kwargs
     ):
         """
@@ -89,26 +89,21 @@ class BatchPolopt(RLAlgorithm):
 
                 return l
 
-            self.sess = tf.InteractiveSession()
+            sess = tf.InteractiveSession()
             params = joblib.load(self.params_pkl)
+            sess.close()
 
             policy = get_numbered_order(params, "policy")
-            env = get_numbered_order(params, "env")
-
-            self.env = env[0]
-            self.env_partitions = env[1:]
             self.policy = policy[0]
             self.local_policies = policy[1:]
-
-            env = env[0]
         else:
-            self.env = env
-            self.env_partitions = partitions
             self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
             self.local_policies = [
-                policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(len(self.env_partitions))
+                policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(len(partitions))
             ]
 
+        self.env = env
+        self.env_partitions = partitions
         self.n_parts = len(self.env_partitions)
 
         self.baseline = baseline_class(env_spec=env.spec, **baseline_kwargs)
@@ -172,7 +167,7 @@ class BatchPolopt(RLAlgorithm):
 
         self.test_env = test_env
         self.save_data = save_data
-        self.optimize_policy = optimize_policy
+        self.should_optimize_policy = should_optimize_policy
 
         if not self.test_env is None:
             self.test_sampler = Sampler(
@@ -234,7 +229,7 @@ class BatchPolopt(RLAlgorithm):
                 logger.log("Logging diagnostics...")
                 self.log_diagnostics(all_paths,)
 
-                if self.optimize_policy:
+                if self.should_optimize_policy:
                     logger.log("Optimizing policy...")
                     self.optimize_policy(itr, all_samples_data)
 

@@ -30,7 +30,6 @@ def run_task(args,*_):
     wrapped_train_env_partitions = wrapped_train_env.get_partitions()
     partitions = [TfEnv(partition) for partition in wrapped_train_env_partitions]
     partitions = [p for p in partitions if p.wrapped_env._MetaworldWrapper__wrapped_env.observation_space.shape[0] == 6]
-
     metaworld_test_env = benchmark.get_test_tasks()
     wrapped_test_env = MetaworldWrapper(metaworld_test_env)
     test_env = TfEnv(wrapped_test_env)
@@ -40,6 +39,7 @@ def run_task(args,*_):
         min_std=1e-2,
         hidden_sizes=(150, 100, 50),
     )
+    import pdb;pdb.set_trace()
 
     baseline_class = LinearFeatureBaseline
 
@@ -56,6 +56,7 @@ def run_task(args,*_):
         max_path_length=50,
         discount=1,
         step_size=0.02,
+        save_data=True,
     )
     
     algo.train()
