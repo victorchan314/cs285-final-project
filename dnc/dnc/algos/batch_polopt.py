@@ -22,6 +22,7 @@ class BatchPolopt(RLAlgorithm):
             partitions,
             policy_class,
             policy_kwargs=dict(),
+            policy=None,
             baseline_class=LinearFeatureBaseline,
             baseline_kwargs=dict(),
             distillation_period=50,
@@ -77,7 +78,10 @@ class BatchPolopt(RLAlgorithm):
         self.env_partitions = partitions
         self.n_parts = len(self.env_partitions)
 
-        self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
+        if not policy is None:
+            self.policy = policy
+        else:
+            self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
 
         self.local_policies = [
             policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
