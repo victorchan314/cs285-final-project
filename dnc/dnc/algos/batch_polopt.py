@@ -244,6 +244,16 @@ class BatchPolopt(RLAlgorithm):
                     with logger.tabular_prefix("Test"):
                         self.test_sampler.process_samples(itr, test_paths)
 
+                successes = 0.0
+                trials = 0.0
+                for samples_data in all_samples_data:
+                    success = samples_data["env_infos"]["success"]
+                    successes += np.sum(success)
+                    trials += success.shape[0]
+
+                success_rate = successes / trials
+                logger.record_tabular("Success Rate", success_rate)
+
                 logger.log("Saving snapshot...")
                 params = self.get_itr_snapshot(itr, all_samples_data)  # , **kwargs)
                 logger.save_itr_params(itr, params)
