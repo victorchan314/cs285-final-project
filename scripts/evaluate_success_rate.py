@@ -60,6 +60,8 @@ def run_task(args,*_):
         max_path_length=50,
         discount=1,
         step_size=0.02,
+        save_data=True,
+        optimize_policy=False,
     )
     
     algo.train()

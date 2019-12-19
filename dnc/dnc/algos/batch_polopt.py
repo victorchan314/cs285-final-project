@@ -43,6 +43,8 @@ class BatchPolopt(RLAlgorithm):
             fixed_horizon=False,
             force_batch_sampler=False,
             test_env=None,
+            save_data=False,
+            optimize_policy=True,
             **kwargs
     ):
         """
@@ -147,6 +149,9 @@ class BatchPolopt(RLAlgorithm):
         )
 
         self.test_env = test_env
+        self.save_data = save_data
+        self.optimize_policy = optimize_policy
+
         if not self.test_env is None:
             self.test_sampler = Sampler(
                     env=self.test_env,
@@ -207,8 +212,9 @@ class BatchPolopt(RLAlgorithm):
                 logger.log("Logging diagnostics...")
                 self.log_diagnostics(all_paths,)
 
-                logger.log("Optimizing policy...")
-                self.optimize_policy(itr, all_samples_data)
+                if self.optimize_policy:
+                    logger.log("Optimizing policy...")
+                    self.optimize_policy(itr, all_samples_data)
 
                 if not self.test_env is None:
                     logger.log("Obtaining test samples...")
@@ -254,7 +260,9 @@ class BatchPolopt(RLAlgorithm):
 
         d['policy'] = self.policy
         d['env'] = self.env
-        d["samples_data"] = samples_data
+
+        if self.save_data:
+            d["samples_data"] = samples_data
 
         return d
  
