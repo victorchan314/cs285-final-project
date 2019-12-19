@@ -24,16 +24,20 @@ from rllab.misc.instrument import stub, run_experiment_lite
 
 benchmark = None
 policy = None
+env = None
 
+
+def get_numbered_order(d, name):
+    l = [d[name]]
+
+    sorted_keys = sorted([k for k in d.keys() if k.startswith(name) and len(k) > len(name)])
+
+    for k in sorted_keys:
+        l.append(d[k])
+
+    return l
 
 def run_task(args,*_):
-    metaworld_train_env = benchmark.get_train_tasks()
-    wrapped_train_env = MetaworldWrapper(metaworld_train_env)
-    env = TfEnv(wrapped_train_env)
-    wrapped_train_env_partitions = wrapped_train_env.get_partitions()
-    partitions = [TfEnv(partition) for partition in wrapped_train_env_partitions]
-    partitions = [p for p in partitions if p.wrapped_env._MetaworldWrapper__wrapped_env.observation_space.shape[0] == 6]
-
     metaworld_test_env = benchmark.get_test_tasks()
     wrapped_test_env = MetaworldWrapper(metaworld_test_env)
     test_env = TfEnv(wrapped_test_env)
@@ -47,10 +51,10 @@ def run_task(args,*_):
     baseline_class = LinearFeatureBaseline
 
     algo = dnc_trpo.TRPO(
-        env=env,
+        env=env[0],
         test_env=test_env,
         policy=policy,
-        partitions=partitions,
+        partitions=env[1:],
         policy_class=policy_class,
         policy_kwargs=policy_kwargs,
         baseline_class=baseline_class,
@@ -70,7 +74,8 @@ def main(args):
     with tf.Session() as sess:
         params = joblib.load(args.params_pkl)
 
-    policy = params["policy"]
+    policy = get_numbered_order(params, "policy")
+    env = get_numbered_order(params, "env")
 
     run_experiment_lite(
         run_task,

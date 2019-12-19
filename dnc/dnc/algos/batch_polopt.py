@@ -81,13 +81,13 @@ class BatchPolopt(RLAlgorithm):
         self.n_parts = len(self.env_partitions)
 
         if not policy is None:
-            self.policy = policy
+            self.policy = policy[0]
+            self.local_policies = policy[1:]
         else:
             self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
-
-        self.local_policies = [
-            policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
-        ]
+            self.local_policies = [
+                policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
+            ]
 
         self.baseline = baseline_class(env_spec=env.spec, **baseline_kwargs)
 
