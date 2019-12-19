@@ -44,3 +44,6 @@ class MetaworldWrapper(gym.Env):
         partitions = [MetaworldWrapper(x) for x in self.__wrapped_env._task_envs]
 
         return partitions
+
+
+ML10Wrapper = MetaworldWrapper
