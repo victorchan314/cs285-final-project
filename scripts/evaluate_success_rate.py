@@ -1,8 +1,5 @@
 import argparse
 import datetime as dt
-import joblib
-
-import tensorflow as tf
 
 # Environment Imports
 from sandbox.rocky.tf.envs.base import TfEnv
@@ -23,21 +20,17 @@ from rllab.misc.instrument import stub, run_experiment_lite
 
 
 benchmark = None
-policy = None
-env = None
+params_pkl = None
 
-
-def get_numbered_order(d, name):
-    l = [d[name]]
-
-    sorted_keys = sorted([k for k in d.keys() if k.startswith(name) and len(k) > len(name)])
-
-    for k in sorted_keys:
-        l.append(d[k])
-
-    return l
 
 def run_task(args,*_):
+    metaworld_train_env = benchmark.get_train_tasks()
+    wrapped_train_env = MetaworldWrapper(metaworld_train_env)
+    env = TfEnv(wrapped_train_env)
+    wrapped_train_env_partitions = wrapped_train_env.get_partitions()
+    partitions = [TfEnv(partition) for partition in wrapped_train_env_partitions]
+    partitions = [p for p in partitions if p.wrapped_env._MetaworldWrapper__wrapped_env.observation_space.shape[0] == 6]
+
     metaworld_test_env = benchmark.get_test_tasks()
     wrapped_test_env = MetaworldWrapper(metaworld_test_env)
     test_env = TfEnv(wrapped_test_env)
@@ -51,10 +44,9 @@ def run_task(args,*_):
     baseline_class = LinearFeatureBaseline
 
     algo = dnc_trpo.TRPO(
-        env=env[0],
+        env=env,
         test_env=test_env,
-        policy=policy,
-        partitions=env[1:],
+        partitions=partitions,
         policy_class=policy_class,
         policy_kwargs=policy_kwargs,
         baseline_class=baseline_class,
@@ -66,26 +58,10 @@ def run_task(args,*_):
         step_size=0.02,
         save_data=True,
         optimize_policy=False,
+        params_pkl=params_pkl,
     )
     
     algo.train()
-
-def main(args):
-    with tf.Session() as sess:
-        params = joblib.load(args.params_pkl)
-
-    policy = get_numbered_order(params, "policy")
-    env = get_numbered_order(params, "env")
-
-    run_experiment_lite(
-        run_task,
-        log_dir='data/dnc/{}_{}'.format(args.benchmark, dt.datetime.today().strftime("%Y-%m-%d_%H-%M-%S")),
-        n_parallel=12,
-        snapshot_mode="last",
-        seed=1,
-        variant=dict(),
-        use_cloudpickle=True,
-    )
 
 
 if __name__ == "__main__":
@@ -105,4 +81,14 @@ if __name__ == "__main__":
     else:
         raise ValueError("Invalid benchmark {}".format(args.benchmark))
 
-    main(args)
+    params_pkl = args.params_pkl
+
+    run_experiment_lite(
+        run_task,
+        log_dir='data/evaluate/{}_{}'.format(args.benchmark, dt.datetime.today().strftime("%Y-%m-%d_%H-%M-%S")),
+        n_parallel=12,
+        snapshot_mode="last",
+        seed=1,
+        variant=dict(),
+        use_cloudpickle=True,
+    )

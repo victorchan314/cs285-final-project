@@ -4,6 +4,7 @@ import rllab.misc.logger as logger
 from dnc.sampler.policy_sampler import Sampler
 from rllab.baselines.linear_feature_baseline import LinearFeatureBaseline
 
+import joblib
 import tensorflow as tf
 import numpy as np
 import time
@@ -22,7 +23,7 @@ class BatchPolopt(RLAlgorithm):
             partitions,
             policy_class,
             policy_kwargs=dict(),
-            policy=None,
+            params_pkl=None,
             baseline_class=LinearFeatureBaseline,
             baseline_kwargs=dict(),
             distillation_period=50,
@@ -80,14 +81,11 @@ class BatchPolopt(RLAlgorithm):
         self.env_partitions = partitions
         self.n_parts = len(self.env_partitions)
 
-        if not policy is None:
-            self.policy = policy[0]
-            self.local_policies = policy[1:]
-        else:
-            self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
-            self.local_policies = [
-                policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
-            ]
+        self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
+
+        self.local_policies = [
+            policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
+        ]
 
         self.baseline = baseline_class(env_spec=env.spec, **baseline_kwargs)
 
@@ -151,6 +149,7 @@ class BatchPolopt(RLAlgorithm):
         self.test_env = test_env
         self.save_data = save_data
         self.optimize_policy = optimize_policy
+        self.params_pkl = params_pkl
 
         if not self.test_env is None:
             self.test_sampler = Sampler(
@@ -193,6 +192,61 @@ class BatchPolopt(RLAlgorithm):
 
         self.start_worker()
         start_time = time.time()
+
+        if not self.params_pkl is None:
+            def get_numbered_order(d, name):
+                l = [d[name]]
+
+                sorted_keys = sorted([k for k in d.keys() if k.startswith(name) and len(k) > len(name)])
+
+                for k in sorted_keys:
+                    l.append(d[k])
+
+                return l
+
+            params = joblib.load(self.params_pkl)
+
+            policy = get_numbered_order(params, "policy")
+            env = get_numbered_order(params, "env")
+
+            self.env = env[0]
+            self.env_partitions = env[1:]
+            self.policy = policy[0]
+            self.local_policies = policy[1:]
+
+            self.local_samplers = [
+                Sampler(
+                    env=env,
+                    policy=policy,
+                    baseline=baseline,
+                    scope=scope,
+                    batch_size=batch_size,
+                    max_path_length=max_path_length,
+                    discount=discount,
+                    gae_lambda=gae_lambda,
+                    center_adv=center_adv,
+                    positive_adv=positive_adv,
+                    whole_paths=whole_paths,
+                    fixed_horizon=fixed_horizon,
+                    force_batch_sampler=force_batch_sampler
+                ) for env, policy, baseline in zip(self.env_partitions, self.local_policies, self.local_baselines)
+            ]
+
+            self.global_sampler = Sampler(
+                    env=self.env,
+                    policy=self.policy,
+                    baseline=self.baseline,
+                    scope=scope,
+                    batch_size=batch_size,
+                    max_path_length=max_path_length,
+                    discount=discount,
+                    gae_lambda=gae_lambda,
+                    center_adv=center_adv,
+                    positive_adv=positive_adv,
+                    whole_paths=whole_paths,
+                    fixed_horizon=fixed_horizon,
+                    force_batch_sampler=force_batch_sampler
+            )
 
         for itr in range(self.start_itr, self.n_itr):
             itr_start_time = time.time()
