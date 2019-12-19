@@ -55,13 +55,15 @@ def run_task(args,*_):
         policy_kwargs=policy_kwargs,
         baseline_class=baseline_class,
         batch_size=20000,
-        n_itr=500,
+        n_itr=0,
         force_batch_sampler=True,
         max_path_length=50,
         discount=1,
         step_size=0.02,
     )
     
+    algo.train()
+
     with tf.Session() as sess:
         paths = algo.global_sampler.obtain_samples(0)
         data = algo.global_sampler.process_samples(0, paths)
