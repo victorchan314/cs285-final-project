@@ -62,10 +62,11 @@ def run_task(args,*_):
         step_size=0.02,
     )
     
-    paths = algo.global_sampler.obtain_samples(0)
-    data = algo.global_sampler.process_samples(0, paths)
-    print(paths)
-    print(data)
+    with tf.Session() as sess:
+        paths = algo.global_sampler.obtain_samples(0)
+        data = algo.global_sampler.process_samples(0, paths)
+        print(paths)
+        print(data)
 
 def main(args):
     with tf.Session() as sess:
