@@ -27,9 +27,13 @@ def run_task(args,*_):
     metaworld_train_env = benchmark.get_train_tasks()
     wrapped_train_env = MetaworldWrapper(metaworld_train_env)
     env = TfEnv(wrapped_train_env)
-    wrapped_train_env_partitions = wrapped_train_env.get_partitions()
-    partitions = [TfEnv(partition) for partition in wrapped_train_env_partitions]
-    partitions = [p for p in partitions if p.wrapped_env._MetaworldWrapper__wrapped_env.observation_space.shape[0] == 6]
+
+    partitions = []
+    for i in range(metaworld_train_env.num_tasks):
+        partition = benchmark.get_train_tasks()
+        partition.set_task(i)
+        partitions.append(TfEnv(MetaworldWrapper(partition)))
+
     metaworld_test_env = benchmark.get_test_tasks()
     wrapped_test_env = MetaworldWrapper(metaworld_test_env)
     test_env = TfEnv(wrapped_test_env)
