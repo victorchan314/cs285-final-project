@@ -77,15 +77,19 @@ class BatchPolopt(RLAlgorithm):
         :return:
         """
 
-        self.env = env
-        self.env_partitions = partitions
-        self.n_parts = len(self.env_partitions)
+        self.params_pkl = params_pkl
 
-        self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
+        if self.params_pkl is None:
+            self.env = env
+            self.env_partitions = partitions
+            self.n_parts = len(self.env_partitions)
 
-        self.local_policies = [
-            policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
-        ]
+        if self.params_pkl is None:
+            self.policy = policy_class(name='central_policy', env_spec=env.spec, **policy_kwargs)
+
+            self.local_policies = [
+                policy_class(name='local_policy_%d' % (n), env_spec=env.spec, **policy_kwargs) for n in range(self.n_parts)
+            ]
 
         self.baseline = baseline_class(env_spec=env.spec, **baseline_kwargs)
 
@@ -112,44 +116,44 @@ class BatchPolopt(RLAlgorithm):
         self.whole_paths = whole_paths
         self.fixed_horizon = fixed_horizon
 
-        self.local_samplers = [
-            Sampler(
-                env=env,
-                policy=policy,
-                baseline=baseline,
-                scope=scope,
-                batch_size=batch_size,
-                max_path_length=max_path_length,
-                discount=discount,
-                gae_lambda=gae_lambda,
-                center_adv=center_adv,
-                positive_adv=positive_adv,
-                whole_paths=whole_paths,
-                fixed_horizon=fixed_horizon,
-                force_batch_sampler=force_batch_sampler
-            ) for env, policy, baseline in zip(self.env_partitions, self.local_policies, self.local_baselines)
-        ]
+        if self.params_pkl is None:
+            self.local_samplers = [
+                Sampler(
+                    env=env,
+                    policy=policy,
+                    baseline=baseline,
+                    scope=scope,
+                    batch_size=batch_size,
+                    max_path_length=max_path_length,
+                    discount=discount,
+                    gae_lambda=gae_lambda,
+                    center_adv=center_adv,
+                    positive_adv=positive_adv,
+                    whole_paths=whole_paths,
+                    fixed_horizon=fixed_horizon,
+                    force_batch_sampler=force_batch_sampler
+                ) for env, policy, baseline in zip(self.env_partitions, self.local_policies, self.local_baselines)
+            ]
 
-        self.global_sampler = Sampler(
-                env=self.env,
-                policy=self.policy,
-                baseline=self.baseline,
-                scope=scope,
-                batch_size=batch_size,
-                max_path_length=max_path_length,
-                discount=discount,
-                gae_lambda=gae_lambda,
-                center_adv=center_adv,
-                positive_adv=positive_adv,
-                whole_paths=whole_paths,
-                fixed_horizon=fixed_horizon,
-                force_batch_sampler=force_batch_sampler
-        )
+            self.global_sampler = Sampler(
+                    env=self.env,
+                    policy=self.policy,
+                    baseline=self.baseline,
+                    scope=scope,
+                    batch_size=batch_size,
+                    max_path_length=max_path_length,
+                    discount=discount,
+                    gae_lambda=gae_lambda,
+                    center_adv=center_adv,
+                    positive_adv=positive_adv,
+                    whole_paths=whole_paths,
+                    fixed_horizon=fixed_horizon,
+                    force_batch_sampler=force_batch_sampler
+            )
 
         self.test_env = test_env
         self.save_data = save_data
         self.optimize_policy = optimize_policy
-        self.params_pkl = params_pkl
 
         if not self.test_env is None:
             self.test_sampler = Sampler(
