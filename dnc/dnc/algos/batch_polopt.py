@@ -254,6 +254,7 @@ class BatchPolopt(RLAlgorithm):
 
         d['policy'] = self.policy
         d['env'] = self.env
+        d["samples_data"] = samples_data
 
         return d
  
